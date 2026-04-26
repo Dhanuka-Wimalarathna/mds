@@ -1,98 +1,252 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React from 'react';
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Typography } from '@/components/Typography';
+import { Surface } from '@/components/Surface';
+import { ProgressOrbit } from '@/components/ProgressOrbit';
+import { Colors, Spacing, Radius } from '@/constants/DesignTokens';
+import { MaterialIcons } from '@expo/vector-icons';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+const ACTIONS = [
+  {
+    id: 'lessons',
+    title: 'Driving Lessons',
+    description: 'One-on-one sessions with certified experts.',
+    icon: 'directions-car',
+  },
+  {
+    id: 'theory',
+    title: 'Theory Test',
+    description: 'Interactive mock exams and practice sets.',
+    icon: 'quiz',
+  },
+  {
+    id: 'signs',
+    title: 'Road Signs',
+    description: 'Master local and international signage.',
+    icon: 'traffic',
+  },
+  {
+    id: 'schedule',
+    title: 'Schedule',
+    description: 'Manage and book your appointments.',
+    icon: 'event',
+  },
+];
+
+const SUCCESS_STORIES = [
+  {
+    name: 'Sarah Jenkins',
+    quote: 'The patience shown by my instructor was incredible. I went from terrified to confident in just 5 lessons!',
+  },
+  {
+    name: 'David Chen',
+    quote: 'Passed my test on the first try! The mock exams in the app are exactly like the real thing.',
+  },
+];
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <SafeAreaView style={styles.container}>
+      <ScrollView 
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Header Section */}
+        <View style={styles.header}>
+          <Typography variant="headlineLg">Hi, Alex! 👋</Typography>
+          <Typography variant="bodyMd" color={Colors.onSurfaceVariant}>
+            Keep up the great work on your driving journey.
+          </Typography>
+        </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        {/* Progress Card */}
+        <Surface tier="lowest" elevated style={styles.progressCard}>
+          <View style={styles.progressTop}>
+            <View>
+              <Typography variant="titleLg">Your Progress</Typography>
+              <Typography variant="bodySm" color={Colors.onSurfaceVariant}>
+                3/10 Lessons Completed
+              </Typography>
+            </View>
+            <View style={styles.badge}>
+              <Typography variant="labelSm" color={Colors.secondary}>
+                ON TRACK
+              </Typography>
+            </View>
+          </View>
+          <View style={styles.orbitContainer}>
+            <ProgressOrbit 
+              progress={0.3} 
+              total={10} 
+              completed={3} 
+              size={140}
+            />
+            <View style={styles.nextLesson}>
+              <Typography variant="labelLg">Next Lesson</Typography>
+              <Typography variant="titleMd">Tomorrow, 10:00 AM</Typography>
+              <Typography variant="bodySm" color={Colors.onSurfaceVariant}>
+                with Instructor Mark
+              </Typography>
+            </View>
+          </View>
+        </Surface>
+
+        {/* Action Grid */}
+        <View style={styles.sectionHeader}>
+          <Typography variant="titleLg">What's Next?</Typography>
+        </View>
+        
+        <View style={styles.grid}>
+          {ACTIONS.map((action) => (
+            <TouchableOpacity key={action.id} activeOpacity={0.8} style={styles.gridItem}>
+              <Surface tier="low" style={styles.actionCard}>
+                <View style={styles.actionIcon}>
+                  <MaterialIcons name={action.icon as any} size={24} color={Colors.primary} />
+                </View>
+                <Typography variant="titleMd" style={styles.actionTitle}>
+                  {action.title}
+                </Typography>
+                <Typography variant="bodySm" color={Colors.onSurfaceVariant}>
+                  {action.description}
+                </Typography>
+              </Surface>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        {/* Success Stories */}
+        <View style={styles.sectionHeader}>
+          <Typography variant="titleLg">Success Stories</Typography>
+        </View>
+        
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.carousel}>
+          {SUCCESS_STORIES.map((story, i) => (
+            <Surface key={i} tier="lowest" style={styles.storyCard}>
+              <Typography variant="bodyMd" style={styles.quote}>
+                "{story.quote}"
+              </Typography>
+              <View style={styles.storyFooter}>
+                <View style={styles.avatarPlaceholder} />
+                <Typography variant="labelLg">{story.name}</Typography>
+              </View>
+            </Surface>
+          ))}
+        </ScrollView>
+
+        {/* Footer */}
+        <View style={styles.footer}>
+          <Typography variant="labelMd" color={Colors.onSurfaceVariant}>
+            Madushani Driving School
+          </Typography>
+          <Typography variant="bodySm" color={Colors.onSurfaceVariant}>
+            123 Driver Lane, Metro City Centre
+          </Typography>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+  scrollContent: {
+    padding: Spacing.xl,
+    paddingBottom: 100, // Space for tab bar
+  },
+  header: {
+    marginBottom: Spacing.xxl,
+  },
+  progressCard: {
+    padding: Spacing.xl,
+    marginBottom: Spacing.xxl,
+  },
+  progressTop: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: Spacing.lg,
+  },
+  badge: {
+    backgroundColor: 'rgba(42, 107, 44, 0.1)',
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: 2,
+    borderRadius: Radius.sm,
+  },
+  orbitContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: Spacing.xl,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  nextLesson: {
+    flex: 1,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  sectionHeader: {
+    marginBottom: Spacing.lg,
+  },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginHorizontal: -Spacing.xs,
+    marginBottom: Spacing.xxl,
+  },
+  gridItem: {
+    width: '50%',
+    padding: Spacing.xs,
+  },
+  actionCard: {
+    padding: Spacing.lg,
+    height: 160,
+    justifyContent: 'center',
+  },
+  actionIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: Radius.md,
+    backgroundColor: Colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: Spacing.md,
+  },
+  actionTitle: {
+    marginBottom: 4,
+  },
+  carousel: {
+    marginHorizontal: -Spacing.xl,
+    paddingHorizontal: Spacing.xl,
+    marginBottom: Spacing.xxl,
+  },
+  storyCard: {
+    width: 280,
+    padding: Spacing.xl,
+    marginRight: Spacing.lg,
+  },
+  quote: {
+    fontStyle: 'italic',
+    marginBottom: Spacing.lg,
+    lineHeight: 22,
+  },
+  storyFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.md,
+  },
+  avatarPlaceholder: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: Colors.surfaceLow,
+  },
+  footer: {
+    alignItems: 'center',
+    marginTop: Spacing.xl,
   },
 });
