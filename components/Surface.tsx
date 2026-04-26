@@ -1,4 +1,5 @@
-import { Colors, Radius, Shadows } from "@/constants/DesignTokens";
+import { Radius, Shadows } from "@/constants/DesignTokens";
+import { useTheme } from "@/context/ThemeContext";
 import React from "react";
 import { View, ViewProps } from "react-native";
 
@@ -18,16 +19,18 @@ export const Surface: React.FC<SurfaceProps> = ({
   children,
   ...props
 }) => {
+  const { colors, isDark } = useTheme();
+
   const getBackgroundColor = () => {
     switch (tier) {
       case "base":
-        return Colors.surface;
+        return colors.surface;
       case "low":
-        return Colors.surfaceLow;
+        return colors.surfaceLow;
       case "lowest":
-        return Colors.surfaceLowest;
+        return colors.surfaceLowest;
       default:
-        return Colors.surface;
+        return colors.surface;
     }
   };
 
@@ -38,7 +41,10 @@ export const Surface: React.FC<SurfaceProps> = ({
           backgroundColor: getBackgroundColor(),
           borderRadius: Radius[rounded],
         },
-        elevated && Shadows.ambient,
+        elevated && {
+          ...Shadows.ambient,
+          shadowColor: isDark ? "#000" : Shadows.ambient.shadowColor,
+        },
         style,
       ]}
       {...props}

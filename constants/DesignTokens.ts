@@ -1,9 +1,11 @@
-export const Colors = {
+export const LightColors = {
   primary: '#0040a1',
   primaryContainer: '#0056d2',
-  secondary: '#2a6b2c', // Safety/Success
+  secondary: '#2a6b2c',
+  tertiary: '#7d5260',
   background: '#f8f9fa',
   surface: '#f8f9fa',
+  surfaceVariant: '#e1e2ec',
   surfaceLow: '#f3f4f5',
   surfaceLowest: '#ffffff',
   onSurface: '#191c1d',
@@ -13,8 +15,30 @@ export const Colors = {
   white: '#ffffff',
   black: '#000000',
   transparent: 'transparent',
-  glass: 'rgba(248, 249, 250, 0.8)', // for Glassmorphism
+  glass: 'rgba(248, 249, 250, 0.8)',
 };
+
+export const DarkColors = {
+  primary: '#adc6ff',
+  primaryContainer: '#004494',
+  secondary: '#92d793',
+  tertiary: '#efb8c8',
+  background: '#111318',
+  surface: '#111318',
+  surfaceVariant: '#44474f',
+  surfaceLow: '#1a1c1e',
+  surfaceLowest: '#0d0e11',
+  onSurface: '#e2e2e6',
+  onSurfaceVariant: '#c3c6cf',
+  outline: '#8e9099',
+  outlineVariant: '#44474f',
+  white: '#ffffff',
+  black: '#000000',
+  transparent: 'transparent',
+  glass: 'rgba(17, 19, 24, 0.8)',
+};
+
+export const Colors = LightColors; // For backwards compatibility during migration
 
 export const Spacing = {
   xs: 4,
@@ -124,7 +148,7 @@ export const Radius = {
 
 export const Shadows = {
   ambient: {
-    shadowColor: Colors.onSurface,
+    shadowColor: '#000000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.06,
     shadowRadius: 24,

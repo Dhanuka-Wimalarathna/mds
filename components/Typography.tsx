@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, TextProps, StyleSheet } from 'react-native';
-import { Typography as TypographyTokens, Colors } from '@/constants/DesignTokens';
+import { Typography as TypographyTokens } from '@/constants/DesignTokens';
+import { useTheme } from '@/context/ThemeContext';
 
 type Variant = 'display' | 'headlineLg' | 'headlineMd' | 'headlineSm' | 'titleLg' | 'titleMd' | 'titleSm' | 'bodyLg' | 'bodyMd' | 'bodySm' | 'labelLg' | 'labelMd' | 'labelSm';
 
@@ -12,12 +13,14 @@ interface TypographyProps extends TextProps {
 
 export const Typography: React.FC<TypographyProps> = ({
   variant = 'bodyMd',
-  color = Colors.onSurface,
+  color,
   align = 'auto',
   style,
   children,
   ...props
 }) => {
+  const { colors } = useTheme();
+  
   const getVariantStyle = () => {
     switch (variant) {
       case 'display': return TypographyTokens.display;
@@ -41,7 +44,7 @@ export const Typography: React.FC<TypographyProps> = ({
     <Text
       style={[
         getVariantStyle(),
-        { color, textAlign: align },
+        { color: color || colors.onSurface, textAlign: align },
         style,
       ]}
       {...props}

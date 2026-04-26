@@ -8,11 +8,12 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Typography } from './Typography';
-import { Colors, Radius, Spacing } from '@/constants/DesignTokens';
+import { Radius, Spacing } from '@/constants/DesignTokens';
+import { useTheme } from '@/context/ThemeContext';
 
 interface ButtonProps extends TouchableOpacityProps {
   title: string;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'tonal';
   loading?: boolean;
 }
 
@@ -24,24 +25,42 @@ export const Button: React.FC<ButtonProps> = ({
   style,
   ...props
 }) => {
+  const { colors } = useTheme();
   const isDisabled = disabled || loading;
 
   const getContent = () => {
     if (loading) {
       return (
         <ActivityIndicator
-          color={variant === 'primary' ? Colors.white : Colors.primary}
+          color={variant === 'primary' ? colors.white : colors.primary}
         />
       );
     }
     return (
       <Typography
         variant="titleMd"
-        color={variant === 'primary' ? Colors.white : Colors.primary}
+        color={variant === 'primary' ? colors.white : colors.primary}
       >
         {title}
       </Typography>
     );
+  };
+
+  const getVariantStyle = () => {
+    switch (variant) {
+      case 'outline':
+        return {
+          borderWidth: 1.5,
+          borderColor: colors.outlineVariant,
+        };
+      case 'secondary':
+      case 'tonal':
+        return {
+          backgroundColor: colors.surfaceVariant,
+        };
+      default:
+        return {};
+    }
   };
 
   if (variant === 'primary') {
@@ -53,7 +72,7 @@ export const Button: React.FC<ButtonProps> = ({
         {...props}
       >
         <LinearGradient
-          colors={[Colors.primary, Colors.primaryContainer]}
+          colors={[colors.primary, colors.primaryContainer]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={styles.gradient}
@@ -70,8 +89,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={isDisabled}
       style={[
         styles.container,
-        variant === 'outline' && styles.outline,
-        variant === 'secondary' && styles.secondary,
+        getVariantStyle(),
         style,
       ]}
       {...props}
@@ -99,12 +117,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: Spacing.xl,
-  },
-  outline: {
-    borderWidth: 1.5,
-    borderColor: Colors.outlineVariant,
-  },
-  secondary: {
-    backgroundColor: Colors.surfaceLow,
   },
 });

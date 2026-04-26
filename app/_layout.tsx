@@ -1,9 +1,9 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, ThemeProvider as NavigationProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 import * as SplashScreen from 'expo-splash-screen';
+import { ThemeProvider, useTheme } from '@/context/ThemeContext';
 import {
   useFonts,
   Manrope_400Regular,
@@ -22,8 +22,22 @@ export const unstable_settings = {
   anchor: '(tabs)',
 };
 
+function AppContent() {
+  const { isDark } = useTheme();
+
+  return (
+    <NavigationProvider value={isDark ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="welcome" options={{ headerShown: false }} />
+        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+      </Stack>
+      <StatusBar style={isDark ? "light" : "dark"} />
+    </NavigationProvider>
+  );
+}
+
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded, error] = useFonts({
     'Manrope-Regular': Manrope_400Regular,
     'Manrope-Medium': Manrope_500Medium,
@@ -43,13 +57,8 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="welcome" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
+    <ThemeProvider>
+      <AppContent />
     </ThemeProvider>
   );
 }

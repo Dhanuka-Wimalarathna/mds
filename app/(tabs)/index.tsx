@@ -9,8 +9,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Typography } from '@/components/Typography';
 import { Surface } from '@/components/Surface';
 import { ProgressOrbit } from '@/components/ProgressOrbit';
-import { Colors, Spacing, Radius } from '@/constants/DesignTokens';
+import { Spacing, Radius } from '@/constants/DesignTokens';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useTheme } from '@/context/ThemeContext';
 
 const ACTIONS = [
   {
@@ -51,8 +52,10 @@ const SUCCESS_STORIES = [
 ];
 
 export default function HomeScreen() {
+  const { colors, isDark } = useTheme();
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
       <ScrollView 
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -60,7 +63,7 @@ export default function HomeScreen() {
         {/* Header Section */}
         <View style={styles.header}>
           <Typography variant="headlineLg">Hi, Alex! 👋</Typography>
-          <Typography variant="bodyMd" color={Colors.onSurfaceVariant}>
+          <Typography variant="bodyMd" color={colors.onSurfaceVariant}>
             Keep up the great work on your driving journey.
           </Typography>
         </View>
@@ -70,12 +73,12 @@ export default function HomeScreen() {
           <View style={styles.progressTop}>
             <View>
               <Typography variant="titleLg">Your Progress</Typography>
-              <Typography variant="bodySm" color={Colors.onSurfaceVariant}>
+              <Typography variant="bodySm" color={colors.onSurfaceVariant}>
                 3/10 Lessons Completed
               </Typography>
             </View>
-            <View style={styles.badge}>
-              <Typography variant="labelSm" color={Colors.secondary}>
+            <View style={[styles.badge, { backgroundColor: isDark ? 'rgba(146, 215, 147, 0.2)' : 'rgba(42, 107, 44, 0.1)' }]}>
+              <Typography variant="labelSm" color={colors.secondary}>
                 ON TRACK
               </Typography>
             </View>
@@ -90,7 +93,7 @@ export default function HomeScreen() {
             <View style={styles.nextLesson}>
               <Typography variant="labelLg">Next Lesson</Typography>
               <Typography variant="titleMd">Tomorrow, 10:00 AM</Typography>
-              <Typography variant="bodySm" color={Colors.onSurfaceVariant}>
+              <Typography variant="bodySm" color={colors.onSurfaceVariant}>
                 with Instructor Mark
               </Typography>
             </View>
@@ -106,13 +109,13 @@ export default function HomeScreen() {
           {ACTIONS.map((action) => (
             <TouchableOpacity key={action.id} activeOpacity={0.8} style={styles.gridItem}>
               <Surface tier="low" style={styles.actionCard}>
-                <View style={styles.actionIcon}>
-                  <MaterialIcons name={action.icon as any} size={24} color={Colors.primary} />
+                <View style={[styles.actionIcon, { backgroundColor: isDark ? colors.surfaceVariant : colors.white }]}>
+                  <MaterialIcons name={action.icon as any} size={24} color={colors.primary} />
                 </View>
                 <Typography variant="titleMd" style={styles.actionTitle}>
                   {action.title}
                 </Typography>
-                <Typography variant="bodySm" color={Colors.onSurfaceVariant}>
+                <Typography variant="bodySm" color={colors.onSurfaceVariant}>
                   {action.description}
                 </Typography>
               </Surface>
@@ -132,7 +135,7 @@ export default function HomeScreen() {
                 "{story.quote}"
               </Typography>
               <View style={styles.storyFooter}>
-                <View style={styles.avatarPlaceholder} />
+                <View style={[styles.avatarPlaceholder, { backgroundColor: colors.surfaceVariant }]} />
                 <Typography variant="labelLg">{story.name}</Typography>
               </View>
             </Surface>
@@ -141,10 +144,10 @@ export default function HomeScreen() {
 
         {/* Footer */}
         <View style={styles.footer}>
-          <Typography variant="labelMd" color={Colors.onSurfaceVariant}>
+          <Typography variant="labelMd" color={colors.onSurfaceVariant}>
             Madushani Driving School
           </Typography>
-          <Typography variant="bodySm" color={Colors.onSurfaceVariant}>
+          <Typography variant="bodySm" color={colors.onSurfaceVariant}>
             123 Driver Lane, Metro City Centre
           </Typography>
         </View>
@@ -156,7 +159,6 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
   },
   scrollContent: {
     padding: Spacing.xl,
@@ -176,7 +178,6 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.lg,
   },
   badge: {
-    backgroundColor: 'rgba(42, 107, 44, 0.1)',
     paddingHorizontal: Spacing.sm,
     paddingVertical: 2,
     borderRadius: Radius.sm,
@@ -211,7 +212,6 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: Radius.md,
-    backgroundColor: Colors.white,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: Spacing.md,
@@ -243,7 +243,6 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: Colors.surfaceLow,
   },
   footer: {
     alignItems: 'center',

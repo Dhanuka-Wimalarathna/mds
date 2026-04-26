@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
-import { Colors } from '@/constants/DesignTokens';
+import { useTheme } from '@/context/ThemeContext';
 import { Typography } from './Typography';
 
 interface ProgressOrbitProps {
@@ -19,6 +19,7 @@ export const ProgressOrbit: React.FC<ProgressOrbitProps> = ({
   size = 120,
   strokeWidth = 10,
 }) => {
+  const { colors } = useTheme();
   const radius = (size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
   const strokeDashoffset = circumference - progress * circumference;
@@ -31,7 +32,7 @@ export const ProgressOrbit: React.FC<ProgressOrbitProps> = ({
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke={Colors.surfaceLow}
+          stroke={colors.surfaceVariant}
           strokeWidth={strokeWidth}
           fill="none"
         />
@@ -40,7 +41,7 @@ export const ProgressOrbit: React.FC<ProgressOrbitProps> = ({
           cx={size / 2}
           cy={size / 2}
           r={radius}
-          stroke={Colors.secondary}
+          stroke={colors.secondary}
           strokeWidth={strokeWidth}
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
@@ -51,10 +52,10 @@ export const ProgressOrbit: React.FC<ProgressOrbitProps> = ({
       </Svg>
       <View style={StyleSheet.absoluteFill}>
         <View style={styles.content}>
-          <Typography variant="headlineSm" color={Colors.onSurface}>
+          <Typography variant="headlineSm" color={colors.onSurface}>
             {completed}
           </Typography>
-          <Typography variant="labelSm" color={Colors.onSurfaceVariant}>
+          <Typography variant="labelSm" color={colors.onSurfaceVariant}>
             /{total}
           </Typography>
         </View>
