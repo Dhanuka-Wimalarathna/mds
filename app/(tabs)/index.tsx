@@ -12,47 +12,49 @@ import { ProgressOrbit } from '@/components/ProgressOrbit';
 import { Spacing, Radius } from '@/constants/DesignTokens';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from '@/context/ThemeContext';
-
-const ACTIONS = [
-  {
-    id: 'lessons',
-    title: 'Driving Lessons',
-    description: 'One-on-one sessions with certified experts.',
-    icon: 'directions-car',
-  },
-  {
-    id: 'theory',
-    title: 'Theory Test',
-    description: 'Interactive mock exams and practice sets.',
-    icon: 'quiz',
-  },
-  {
-    id: 'signs',
-    title: 'Road Signs',
-    description: 'Master local and international signage.',
-    icon: 'traffic',
-  },
-  {
-    id: 'schedule',
-    title: 'Schedule',
-    description: 'Manage and book your appointments.',
-    icon: 'event',
-  },
-];
-
-const SUCCESS_STORIES = [
-  {
-    name: 'Sarah Jenkins',
-    quote: 'The patience shown by my instructor was incredible. I went from terrified to confident in just 5 lessons!',
-  },
-  {
-    name: 'David Chen',
-    quote: 'Passed my test on the first try! The mock exams in the app are exactly like the real thing.',
-  },
-];
+import { useTranslation } from 'react-i18next';
 
 export default function HomeScreen() {
   const { colors, isDark } = useTheme();
+  const { t } = useTranslation();
+
+  const ACTIONS = [
+    {
+      id: 'mandatory',
+      title: t('home.mandatory'),
+      description: t('home.mandatoryDesc'),
+      icon: 'error',
+    },
+    {
+      id: 'warning',
+      title: t('home.warning'),
+      description: t('home.warningDesc'),
+      icon: 'warning',
+    },
+    {
+      id: 'informatory',
+      title: t('home.informatory'),
+      description: t('home.informatoryDesc'),
+      icon: 'info',
+    },
+    {
+      id: 'quiz',
+      title: t('home.quickQuiz'),
+      description: t('home.quickQuizDesc'),
+      icon: 'bolt',
+    },
+  ];
+
+  const SUCCESS_STORIES = [
+    {
+      name: 'Sarah Jenkins',
+      quote: t('home.successStory1', { defaultValue: 'I passed my theory test with a perfect score! The road sign identification games were a life saver.' }),
+    },
+    {
+      name: 'David Chen',
+      quote: t('home.successStory2', { defaultValue: 'The categorization of signs makes it so much easier to memorize. Highly recommended for beginners!' }),
+    },
+  ];
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
@@ -62,9 +64,9 @@ export default function HomeScreen() {
       >
         {/* Header Section */}
         <View style={styles.header}>
-          <Typography variant="headlineLg">Hi, Alex! 👋</Typography>
+          <Typography variant="headlineLg">{t('home.greeting')}</Typography>
           <Typography variant="bodyMd" color={colors.onSurfaceVariant}>
-            Keep up the great work on your driving journey.
+            {t('home.subGreeting')}
           </Typography>
         </View>
 
@@ -72,29 +74,29 @@ export default function HomeScreen() {
         <Surface tier="lowest" elevated style={styles.progressCard}>
           <View style={styles.progressTop}>
             <View>
-              <Typography variant="titleLg">Your Progress</Typography>
+              <Typography variant="titleLg">{t('home.masteryLevel')}</Typography>
               <Typography variant="bodySm" color={colors.onSurfaceVariant}>
-                3/10 Lessons Completed
+                {t('home.signsMastered', { count: 45, total: 150 })}
               </Typography>
             </View>
             <View style={[styles.badge, { backgroundColor: isDark ? 'rgba(146, 215, 147, 0.2)' : 'rgba(42, 107, 44, 0.1)' }]}>
               <Typography variant="labelSm" color={colors.secondary}>
-                ON TRACK
+                {t('home.advanced')}
               </Typography>
             </View>
           </View>
           <View style={styles.orbitContainer}>
             <ProgressOrbit 
               progress={0.3} 
-              total={10} 
-              completed={3} 
+              total={150} 
+              completed={45} 
               size={140}
             />
             <View style={styles.nextLesson}>
-              <Typography variant="labelLg">Next Lesson</Typography>
-              <Typography variant="titleMd">Tomorrow, 10:00 AM</Typography>
+              <Typography variant="labelLg">{t('home.nextModule')}</Typography>
+              <Typography variant="titleMd">{t('home.prioritySigns')}</Typography>
               <Typography variant="bodySm" color={colors.onSurfaceVariant}>
-                with Instructor Mark
+                {t('home.timeToComplete')}
               </Typography>
             </View>
           </View>
@@ -102,7 +104,7 @@ export default function HomeScreen() {
 
         {/* Action Grid */}
         <View style={styles.sectionHeader}>
-          <Typography variant="titleLg">What's Next?</Typography>
+          <Typography variant="titleLg">{t('home.whatsNext')}</Typography>
         </View>
         
         <View style={styles.grid}>
@@ -125,7 +127,7 @@ export default function HomeScreen() {
 
         {/* Success Stories */}
         <View style={styles.sectionHeader}>
-          <Typography variant="titleLg">Success Stories</Typography>
+          <Typography variant="titleLg">{t('home.successStories')}</Typography>
         </View>
         
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.carousel}>
@@ -145,10 +147,10 @@ export default function HomeScreen() {
         {/* Footer */}
         <View style={styles.footer}>
           <Typography variant="labelMd" color={colors.onSurfaceVariant}>
-            Madushani Driving School
+            {t('welcome.title').replace('\n', ' ')}
           </Typography>
           <Typography variant="bodySm" color={colors.onSurfaceVariant}>
-            123 Driver Lane, Metro City Centre
+            {t('footer.subtitle', { defaultValue: 'Your Complete Road Sign Guide' })}
           </Typography>
         </View>
       </ScrollView>

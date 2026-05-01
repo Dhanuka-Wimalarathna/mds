@@ -1,0 +1,55 @@
+{
+  "common": {
+    "welcome": "සාදරයෙන් පිළිගනිමු",
+    "getStarted": "ආරම්භ කරන්න",
+    "home": "මුල් පිටුව",
+    "exams": "විභාග",
+    "profile": "පැතිකඩ",
+    "logout": "පිටවෙන්න"
+  },
+  "welcome": {
+    "title": "SignWise\nTheory Pro",
+    "subtitle": "මාර්ග සංඥා පිළිබඳ ප්‍රවීණයෙකු වන්න. මාර්ග ආරක්ෂාව සහ න්‍යායාත්මක විශිෂ්ටත්වය සඳහා ඔබේ මග පෙන්වන්නා.",
+    "trusted": "සිසුන් 5,000+ කට වඩා විශ්වාස කරන"
+  },
+  "home": {
+    "greeting": "ආයුබෝවන්, ඇලෙක්ස්! 👋",
+    "subGreeting": "අද මාර්ග සංඥා ඉගෙන ගැනීමට සූදානම්ද?",
+    "masteryLevel": "ප්‍රවීණතා මට්ටම",
+    "signsMastered": "සංඥා {{count}}/{{total}} ක් අවසන්",
+    "advanced": "උසස්",
+    "nextModule": "මීළඟ පාඩම",
+    "prioritySigns": "ප්‍රමුඛතා සංඥා",
+    "timeToComplete": "මිනිත්තු 15 කින් අවසන් කළ හැක",
+    "whatsNext": "මීළඟට කුමක්ද?",
+    "mandatory": "අනිවාර්ය",
+    "mandatoryDesc": "නීතියෙන් අනිවාර්ය කර ඇති සංඥා.",
+    "warning": "අනතුරු ඇඟවීමේ",
+    "warningDesc": "මාර්ගයේ ඇති විය හැකි අනතුරු පිළිබඳ දැනුම් දීම්.",
+    "informatory": "තොරතුරු",
+    "informatoryDesc": "දිශාවන් සහ තොරතුරු සැපයීම.",
+    "quickQuiz": "කෙටි ප්‍රශ්නාවලිය",
+    "quickQuizDesc": "ඕනෑම වෙලාවක ඔබේ දැනුම පරීක්ෂා කරන්න.",
+    "successStories": "සාර්ථක කතා"
+  },
+  "exams": {
+    "title": "විභාග",
+    "mandatorySigns": "අනිවාර්ය සංඥා",
+    "mandatorySignsDesc": "නීතිමය අවශ්‍යතා පිළිබඳ ඔබේ දැනුම පරීක්ෂා කරන්න.",
+    "warningSigns": "අනතුරු ඇඟවීමේ සංඥා",
+    "warningSignsDesc": "අනතුරු සහ මාර්ග අනතුරු ඇඟවීම් හඳුනා ගන්න.",
+    "mockTheory": "අනුමාන න්‍යායාත්මක විභාගය",
+    "mockTheoryDesc": "සියලුම මාර්ග සංඥා කාණ්ඩ ආවරණය වන පරිදි සම්පූර්ණ පරීක්ෂණයකි."
+  },
+  "profile": {
+    "title": "පැතිකඩ",
+    "studentId": "ශිෂ්‍ය හැඳුනුම්පත: {{id}}",
+    "appSettings": "යෙදුම් සැකසුම්",
+    "darkMode": "රාත්‍රී මාදිලිය",
+    "accountSettings": "ගිණුම් සැකසුම්",
+    "personalInfo": "පෞද්ගලික තොරතුරු",
+    "notifications": "දැනුම්දීම්",
+    "security": "ආරක්ෂාව",
+    "language": "භාෂාව"
+  }
+}

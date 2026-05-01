@@ -4,31 +4,40 @@ import { Surface } from '@/components/Surface';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Button } from '@/components/Button';
 import { useTheme } from '@/context/ThemeContext';
+import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ProfileScreen() {
   const { theme, toggleTheme, isDark, colors } = useTheme();
+  const { t } = useTranslation();
+  const { language, setLanguage } = useLanguage();
+
+  const toggleLanguage = () => {
+    const nextLang = language === 'en' ? 'si' : 'en';
+    setLanguage(nextLang);
+  };
 
   return (
     <ScrollView 
       style={[styles.container, { backgroundColor: colors.background }]} 
       contentContainerStyle={styles.content}
     >
-      <Typography variant="headlineSm" style={styles.title}>Profile</Typography>
+      <Typography variant="headlineSm" style={styles.title}>{t('profile.title')}</Typography>
       
       <Surface style={styles.profileCard}>
         <View style={styles.avatarContainer}>
           <MaterialIcons name="account-circle" size={80} color={colors.primary} />
         </View>
         <Typography variant="headlineSm" style={styles.userName}>John Doe</Typography>
-        <Typography variant="bodyLg" color={colors.onSurfaceVariant}>Student ID: 12345</Typography>
+        <Typography variant="bodyLg" color={colors.onSurfaceVariant}>{t('profile.studentId', { id: '12345' })}</Typography>
       </Surface>
 
-      <Typography variant="titleMd" style={styles.sectionTitle}>App Settings</Typography>
+      <Typography variant="titleMd" style={styles.sectionTitle}>{t('profile.appSettings')}</Typography>
       
       <Surface style={styles.menuCard}>
         <View style={styles.menuItem}>
           <MaterialIcons name={isDark ? "dark-mode" : "light-mode"} size={24} color={colors.onSurface} />
-          <Typography variant="bodyLg" style={styles.menuText}>Dark Mode</Typography>
+          <Typography variant="bodyLg" style={styles.menuText}>{t('profile.darkMode')}</Typography>
           <Switch
             value={isDark}
             onValueChange={toggleTheme}
@@ -36,33 +45,44 @@ export default function ProfileScreen() {
             thumbColor={isDark ? colors.primary : colors.white}
           />
         </View>
+        <View style={styles.divider} />
+        <View style={styles.menuItem}>
+          <MaterialIcons name="language" size={24} color={colors.onSurface} />
+          <Typography variant="bodyLg" style={styles.menuText}>{t('profile.language')}</Typography>
+          <Button 
+            variant="tonal"
+            title={language === 'en' ? 'English' : 'සිංහල'}
+            onPress={toggleLanguage}
+            style={{ paddingHorizontal: 12, height: 32 }}
+          />
+        </View>
       </Surface>
 
-      <Typography variant="titleMd" style={styles.sectionTitle}>Account Settings</Typography>
+      <Typography variant="titleMd" style={styles.sectionTitle}>{t('profile.accountSettings')}</Typography>
       
       <Surface style={styles.menuCard}>
         <View style={styles.menuItem}>
           <MaterialIcons name="person-outline" size={24} color={colors.onSurface} />
-          <Typography variant="bodyLg" style={styles.menuText}>Personal Information</Typography>
+          <Typography variant="bodyLg" style={styles.menuText}>{t('profile.personalInfo')}</Typography>
           <MaterialIcons name="chevron-right" size={24} color={colors.onSurfaceVariant} />
         </View>
         <View style={styles.divider} />
         <View style={styles.menuItem}>
           <MaterialIcons name="notifications-none" size={24} color={colors.onSurface} />
-          <Typography variant="bodyLg" style={styles.menuText}>Notifications</Typography>
+          <Typography variant="bodyLg" style={styles.menuText}>{t('profile.notifications')}</Typography>
           <MaterialIcons name="chevron-right" size={24} color={colors.onSurfaceVariant} />
         </View>
         <View style={styles.divider} />
         <View style={styles.menuItem}>
           <MaterialIcons name="security" size={24} color={colors.onSurface} />
-          <Typography variant="bodyLg" style={styles.menuText}>Security</Typography>
+          <Typography variant="bodyLg" style={styles.menuText}>{t('profile.security')}</Typography>
           <MaterialIcons name="chevron-right" size={24} color={colors.onSurfaceVariant} />
         </View>
       </Surface>
 
       <Button 
         variant="tonal" 
-        title="Log Out"
+        title={t('common.logout')}
         onPress={() => {}} 
         style={styles.logoutButton}
       />

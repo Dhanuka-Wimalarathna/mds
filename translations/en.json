@@ -1,0 +1,55 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "getStarted": "Get Started",
+    "home": "Home",
+    "exams": "Exams",
+    "profile": "Profile",
+    "logout": "Log Out"
+  },
+  "welcome": {
+    "title": "SignWise\nTheory Pro",
+    "subtitle": "Master the Road Signs. Your guide to road safety and theory excellence.",
+    "trusted": "Trusted by 5,000+ Students"
+  },
+  "home": {
+    "greeting": "Hi, Alex! 👋",
+    "subGreeting": "Ready to master today's road signs?",
+    "masteryLevel": "Mastery Level",
+    "signsMastered": "{{count}}/{{total}} Signs Mastered",
+    "advanced": "ADVANCED",
+    "nextModule": "Next Module",
+    "prioritySigns": "Priority Signs",
+    "timeToComplete": "15 minutes to complete",
+    "whatsNext": "What's Next?",
+    "mandatory": "Mandatory",
+    "mandatoryDesc": "Signs you must follow by law.",
+    "warning": "Warning",
+    "warningDesc": "Alerts for potential road hazards.",
+    "informatory": "Informatory",
+    "informatoryDesc": "Direction and information guidance.",
+    "quickQuiz": "Quick Quiz",
+    "quickQuizDesc": "Test your knowledge on the go.",
+    "successStories": "Success Stories"
+  },
+  "exams": {
+    "title": "Exams",
+    "mandatorySigns": "Mandatory Signs",
+    "mandatorySignsDesc": "Test your knowledge on legal requirements.",
+    "warningSigns": "Warning Signs",
+    "warningSignsDesc": "Identify hazards and road warnings.",
+    "mockTheory": "Mock Theory Exam",
+    "mockTheoryDesc": "A full test covering all road sign categories."
+  },
+  "profile": {
+    "title": "Profile",
+    "studentId": "Student ID: {{id}}",
+    "appSettings": "App Settings",
+    "darkMode": "Dark Mode",
+    "accountSettings": "Account Settings",
+    "personalInfo": "Personal Information",
+    "notifications": "Notifications",
+    "security": "Security",
+    "language": "Language"
+  }
+}
