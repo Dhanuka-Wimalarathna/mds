@@ -7,9 +7,11 @@ import { Typography } from '@/components/Typography';
 import { Button } from '@/components/Button';
 import { Colors, Spacing } from '@/constants/DesignTokens';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 
 export default function WelcomeScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   const handleGetStarted = () => {
     router.replace('/(tabs)');
@@ -25,11 +27,11 @@ export default function WelcomeScreen() {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.content}>
           <View style={styles.iconContainer}>
-            <MaterialIcons name="directions-car" size={80} color={Colors.primary} />
+            <MaterialIcons name="traffic" size={80} color={Colors.primary} />
           </View>
           
           <Typography variant="display" align="center" style={styles.title}>
-            Madushani{'\n'}Driving School
+            {t('welcome.title')}
           </Typography>
           
           <Typography 
@@ -38,13 +40,13 @@ export default function WelcomeScreen() {
             color={Colors.onSurfaceVariant}
             style={styles.subtitle}
           >
-            Learn to Drive with Confidence. Your journey to independence starts here.
+            {t('welcome.subtitle')}
           </Typography>
         </View>
 
         <View style={styles.footer}>
           <Button 
-            title="Get Started" 
+            title={t('common.getStarted')} 
             onPress={handleGetStarted}
           />
           <Typography 
@@ -53,7 +55,7 @@ export default function WelcomeScreen() {
             color={Colors.onSurfaceVariant}
             style={styles.footerText}
           >
-            Trusted by 5,000+ Students
+            {t('welcome.trusted')}
           </Typography>
         </View>
       </SafeAreaView>

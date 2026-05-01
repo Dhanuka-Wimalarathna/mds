@@ -3,25 +3,27 @@ import { Typography } from '@/components/Typography';
 import { Surface } from '@/components/Surface';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from '@/context/ThemeContext';
+import { useTranslation } from 'react-i18next';
 
 export default function ExamsScreen() {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <ScrollView 
       style={[styles.container, { backgroundColor: colors.background }]} 
       contentContainerStyle={styles.content}
     >
-      <Typography variant="headlineSm" style={styles.title}>Exams</Typography>
+      <Typography variant="headlineSm" style={styles.title}>{t('exams.title')}</Typography>
       
       <Surface style={styles.card}>
         <View style={[styles.iconContainer, { backgroundColor: colors.surfaceVariant }]}>
           <MaterialIcons name="assignment" size={32} color={colors.primary} />
         </View>
         <View style={styles.cardContent}>
-          <Typography variant="titleLg">Practice Test</Typography>
+          <Typography variant="titleLg">{t('exams.mandatorySigns')}</Typography>
           <Typography variant="bodyMd" color={colors.onSurfaceVariant}>
-            Take a mock exam to test your knowledge.
+            {t('exams.mandatorySignsDesc')}
           </Typography>
         </View>
       </Surface>
@@ -31,9 +33,9 @@ export default function ExamsScreen() {
           <MaterialIcons name="history" size={32} color={colors.secondary} />
         </View>
         <View style={styles.cardContent}>
-          <Typography variant="titleLg">Exam History</Typography>
+          <Typography variant="titleLg">{t('exams.warningSigns')}</Typography>
           <Typography variant="bodyMd" color={colors.onSurfaceVariant}>
-            Review your previous exam results and progress.
+            {t('exams.warningSignsDesc')}
           </Typography>
         </View>
       </Surface>
@@ -43,9 +45,9 @@ export default function ExamsScreen() {
           <MaterialIcons name="analytics" size={32} color={colors.tertiary} />
         </View>
         <View style={styles.cardContent}>
-          <Typography variant="titleLg">Weak Areas</Typography>
+          <Typography variant="titleLg">{t('exams.mockTheory')}</Typography>
           <Typography variant="bodyMd" color={colors.onSurfaceVariant}>
-            See which topics you need to focus on more.
+            {t('exams.mockTheoryDesc')}
           </Typography>
         </View>
       </Surface>
